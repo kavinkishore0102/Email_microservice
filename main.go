@@ -52,7 +52,7 @@ func main() {
 	})
 
 	// Add more routes here (e.g., user registration, campaign creation)
-
+	// test push
 	// Run server
 	err := router.Run(":" + port)
 	if err != nil {
