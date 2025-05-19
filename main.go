@@ -2,35 +2,20 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"log"
 	"net/http"
 	"os"
-
-	"github.com/gin-gonic/gin"
+	"user-service/config"
 )
-
-var DB *gorm.DB
 
 func init() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatalf("Error while loading .env file")
 	}
-	dbUser := os.Getenv("DB_USER")
-	dbPass := os.Getenv("DB_PASSWORD")
-	dbHost := os.Getenv("DB_HOST")
-	dbPort := os.Getenv("DB_PORT")
-	dbName := os.Getenv("DB_NAME")
-
-	dns := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", dbUser, dbPass, dbHost, dbPort, dbName)
-	DB, err = gorm.Open(mysql.Open(dns), &gorm.Config{})
-	if err != nil {
-		log.Fatalf("❌ Failed to connect to database: %v", err)
-	}
-	fmt.Printf("✅ Connected to MySQL database! \n")
+	config.InitDB()
 }
 
 func main() {
