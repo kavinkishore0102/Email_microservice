@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"user-service/config"
+	"user-service/routes"
 )
 
 func init() {
@@ -30,7 +31,7 @@ func main() {
 
 	// Initialize Gin
 	router := gin.Default()
-
+	routes.RegisterUserRoutes(router)
 	// Simple health check endpoint
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "pong"})
